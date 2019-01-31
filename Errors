@@ -1,0 +1,16 @@
+[vagrant@otuslinux linux-4.17.11]$ sudo make -j `nproc` install
+sh ./arch/x86/boot/install.sh 4.17.11 arch/x86/boot/bzImage \
+	System.map "/boot"
+depmod: ERROR: could not open directory /lib/modules/4.17.11: No such file or directory
+depmod: FATAL: could not search modules: No such file or directory
+Kernel version 4.17.11 has no module directory /lib/modules/4.17.11
+Failed to install module hv_netvsc
+
+Broadcast message from systemd-journald@otuslinux (Thu 2019-01-31 06:22:31 UTC):
+
+dracut[1740]: Failed to install module hv_netvsc
+
+
+Message from syslogd@otuslinux at Jan 31 06:22:31 ...
+ dracut:Failed to install module hv_netvsc
+
