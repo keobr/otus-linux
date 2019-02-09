@@ -1,4 +1,45 @@
-Has been added 5 disks in Vagrant file.
+# Add 5 disks to Vagrantfile
+:disks => {
+                :sata1 => {
+                        :dfile => './sata1.vdi',
+                        :size => 250,
+                        :port => 1
+                },
+                :sata2 => {
+                        :dfile => './sata2.vdi',
+                        :size => 250,
+                        :port => 2
+                },
+                :sata3 => {
+                        :dfile => './sata3.vdi',
+                        :size => 250,
+                        :port => 3
+                },
+                :sata4 => {
+                        :dfile => './sata4.vdi',
+                        :size => 250,
+                        :port => 4
+                },
+                :sata5 => {
+                        :dfile => './sata5.vdi',
+                        :size => 250,
+                        :port => 5
+                }
+
+# Install mdadm
+sudo yum install mdadm
+# Set null superblock
+sudo mdadm --zero-superblock --force /dev/sd{b,c,d,e,f}
+# Create Raid 10 
+sudo mdadm --create --verbose /dev/md0 -l 10 -n 5 /dev/sd{b,c,d,e,f}
+[vagrant@otuslinux ~]$ sudo mdadm --detail --scan --verbose
+ARRAY /dev/md0 level=raid10 num-devices=5 metadata=1.2 name=otuslinux:0 UUID=e12360fc:cdcd03ae:cd1c902e:667c1cb3
+devices=/dev/sdb,/dev/sdc,/dev/sdd,/dev/sde,/dev/sdf
+#Create file mdadm.conf 
+sudo mkdir /ete/mdadm/
+sudo echo "DEVICE partitions" > /etc/mdadm/mdadm.conf
+sudo mdadm --detail --scan --verbose | awk '/ARRAY/ {print}' >> /etc/mdadm/mdadm.conf
+
 
 
 
