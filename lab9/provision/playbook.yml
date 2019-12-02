@@ -1,0 +1,14 @@
+---                                                                                                                                                 │# -*- mode: ruby -*-
+# Runs only on nginx                                                                                                                                │# vim: set ft=ruby :
+- hosts: nginx                                                                                                                                      │
+  become: true                                                                                                                                      │MACHINES = {
+  gather_facts: false                                                                                                                               │  :nginx => {
+  tasks:                                                                                                                                            │        :box_name => "centos/7",
+                                                                                                                                                    │        :ip_addr => '192.168.11.77'
+  - name: Install packages only on nginx                                                                                                            │  }
+    yum:                                                                                                                                            │}
+      name:                                                                                                                                         │
+        - telnet                                                                                                                                    │Vagrant.configure("2") do |config|
+        - vim                                                                                                                                       │
+        - bind-utils                                                                                                                                │  MACHINES.each do |boxname, boxconfig|
+      state: latest
